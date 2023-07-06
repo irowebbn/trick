@@ -121,7 +121,13 @@ SWIG_DIRS = \
 	${TRICK_HOME}/trick_source/sim_services/InputProcessor \
 	${TRICK_HOME}/trick_source/trick_swig
 
-SWIG_OBJS = $(addsuffix /object_$(TRICK_HOST_CPU)/*.o ,$(SWIG_DIRS))
+SWIG_DEST = /object_$(TRICK_HOST_CPU)/
+SWIG_OBJS = $(addsuffix $(SWIG_DEST)*.o ,$(SWIG_DIRS))
+
+$(SWIG_OBJS) : | $(SWIG_DEST)
+
+$(SWIG_DEST):
+	@ mkdir $@
 
 #-------------------------------------------------------------------------------
 # Specify where to find units tests.
